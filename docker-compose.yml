@@ -1,0 +1,20 @@
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim-faststart
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD:?Configure ORACLE_PASSWORD no .env}
+      APP_USER: ${APP_USER:?Configure APP_USER no .env}
+      APP_USER_PASSWORD: ${APP_USER_PASSWORD:?Configure APP_USER_PASSWORD no .env}
+    ports:
+      - "127.0.0.1:1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+    shm_size: 1gb
+volumes:
+  oracle-data:

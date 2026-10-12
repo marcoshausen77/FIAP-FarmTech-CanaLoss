@@ -1,0 +1,35 @@
+{
+  "versao": 1,
+  "talhoes": [
+    {
+      "id": "T001",
+      "nome": "Norte — dados fictícios",
+      "area_ha": "10"
+    },
+    {
+      "id": "T002",
+      "nome": "Sul — dados fictícios",
+      "area_ha": "20"
+    }
+  ],
+  "colheitas": [
+    {
+      "id": "C001",
+      "talhao_id": "T001",
+      "data": "2026-01-01",
+      "area_ha": "10",
+      "producao_t": "780",
+      "perda_kg_ha": "2000",
+      "preco_t": "150"
+    },
+    {
+      "id": "C002",
+      "talhao_id": "T002",
+      "data": "2026-01-02",
+      "area_ha": "20",
+      "producao_t": "1560",
+      "perda_kg_ha": "1000",
+      "preco_t": "150"
+    }
+  ]
+}

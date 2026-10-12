@@ -1,0 +1,25 @@
+CANALOSS | RELATÓRIO DE PERDAS ESTIMADAS
+====================================================================================================
+Dados registrados; valores estimados, sem garantia de recuperação.
+A área histórica de cada operação é preservada.
+
+Registro                       Talhão                         Data      
+  Área (ha) | Colhida (t) | Perdida (t) | Total estimado (t) | Perda (%) | Prejuízo (R$)
+C001                           T001                           01/01/2026
+  10,0000 | 780,0000 | 20,0000 | 800,0000 | 2,50 | 3.000,00
+C002                           T002                           02/01/2026
+  20,0000 | 1.560,0000 | 20,0000 | 1.580,0000 | 1,27 | 3.000,00
+
+Registros: 2
+Produção colhida: 2.340,0000 t
+Perdas: 40,0000 t
+Produção total estimada: 2.380,0000 t
+Percentual consolidado ponderado: 1,68 %
+Prejuízo estimado: R$ 6.000,00
+
+RANKING POR IMPACTO FINANCEIRO
+1. T001: R$ 3.000,00 | 20,0000 t | 1 operação(ões)
+2. T002: R$ 3.000,00 | 20,0000 t | 1 operação(ões)
+
+N/D: percentual indefinido quando produção colhida e perda são zero.
+O ranking soma operações e períodos; não mede isoladamente a eficiência por hectare.

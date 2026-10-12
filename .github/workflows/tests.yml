@@ -1,0 +1,64 @@
+name: CanaLoss - Python e Oracle real
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pytest -m "not integration" -v --junitxml=test-results/unit.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: testes-unitarios
+          path: test-results/
+  oracle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      oracle:
+        image: gvenzl/oracle-free:23-slim-faststart
+        env:
+          ORACLE_PASSWORD: CI_Disposable_Admin_83
+          APP_USER: canaloss_test
+          APP_USER_PASSWORD: CI_Disposable_App_83
+        ports:
+          - 1521:1521
+        options: >-
+          --shm-size=1g
+          --health-cmd healthcheck.sh
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 60
+    env:
+      APP_USER: canaloss_test
+      APP_USER_PASSWORD: CI_Disposable_App_83
+      ORACLE_DSN: localhost:1521/FREEPDB1
+      RUN_ORACLE_TESTS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - name: Criar esquema no Oracle real
+        run: python main.py --init-db
+      - name: Executar regras e integração real
+        run: python -m pytest -v --junitxml=test-results/oracle.xml
+      - name: Diagnóstico Oracle
+        if: failure()
+        run: docker logs "${{ job.services.oracle.id }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: testes-oracle-real
+          path: test-results/
