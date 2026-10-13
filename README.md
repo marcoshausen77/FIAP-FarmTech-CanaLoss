@@ -166,6 +166,8 @@ Para repetir a importação em um banco já populado, o conflito será reportado
 
 ## Testes e evidências
 
+**Verificação concluída:** [execução #2 do GitHub Actions](https://github.com/marcoshausen77/FIAP-FarmTech-CanaLoss/actions/runs/38336245433), com **93 testes aprovados**, incluindo **8 testes de integração com Oracle real**. Localmente, 85 testes independentes do banco passaram. Código verificado: `398521b1fee841fe9d0f616e3639e92fe0ca1b3e`. As evidências detalhadas e a correção realizada estão em `docs/VALIDACAO.md`.
+
 Executar dentro da pasta do projeto:
 
 ```bash

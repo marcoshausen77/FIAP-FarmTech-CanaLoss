@@ -16,7 +16,36 @@ Resultado: **84 passed, 6 deselected**. Os seis casos de integração exigem Ora
 
 Primeira execução: [Actions #1](https://github.com/marcoshausen77/FIAP-FarmTech-CanaLoss/actions/runs/38313712996), commit `e9c02f6`.
 
-O Oracle 23.26.3.0.0 iniciou, o esquema foi criado e a suíte executou: **89 aprovados e 1 falha**. A falha ORA-01466 ocorreu na fotografia de exportação com transação READ ONLY imediatamente após DDL. A consulta foi substituída por um único SELECT com LEFT JOIN, preservando a consistência entre tabelas. Foram acrescentados casos para precisão decimal, talhão sem colheita e fluxo completo de consultas, Insights, TXT, JSON e importação repetida pelo terminal. Nova execução em conferência.
+O Oracle 23.26.3.0.0 iniciou, o esquema foi criado e a suíte executou: **89 aprovados e 1 falha**. A falha ORA-01466 ocorreu na fotografia de exportação com transação READ ONLY imediatamente após DDL. A consulta foi substituída por um único SELECT com LEFT JOIN, preservando a consistência entre tabelas. Foram acrescentados casos para precisão decimal, talhão sem colheita e fluxo completo de consultas, Insights, TXT, JSON e importação repetida pelo terminal. 
+
+### Execução final aprovada
+
+[GitHub Actions #2 — resultado completo](https://github.com/marcoshausen77/FIAP-FarmTech-CanaLoss/actions/runs/38336245433)
+
+Código testado: `398521b1fee841fe9d0f616e3639e92fe0ca1b3e`.
+Conclusão dos testes: 12/10/2026 às 23h20 (America/Sao_Paulo), equivalente a 13/10/2026 às 02h20 UTC.
+
+| Ambiente | Comando | Resultado |
+|---|---|---|
+| Local, Python 3.12 | `python -m pytest -q -m "not integration" --junitxml=test-results/local-unit.xml` | 85 aprovados, 8 de integração não selecionados |
+| GitHub, job unit | `python -m pytest -m "not integration" -v --junitxml=test-results/unit.xml` | Aprovado |
+| GitHub, job oracle | `python main.py --init-db` | Esquema criado no Oracle real |
+| GitHub, job oracle | `python -m pytest -v --junitxml=test-results/oracle.xml` com `RUN_ORACLE_TESTS=1` | **93 aprovados, sem falhas e sem testes pulados, em 0,89 s** |
+
+O tempo de 0,89 s corresponde à suíte, não ao download ou à inicialização do contêiner. Os relatórios JUnit estão nos artefatos `testes-unitarios` e `testes-oracle-real` da execução. O Oracle temporário do CI é encerrado após os testes; o ambiente reproduzível para uso local está no Docker Compose.
+
+Os oito testes reais verificaram:
+
+1. Conexão, inclusão, consulta por segunda conexão, edição, exclusão e fotografia consistente.
+2. Duplicidade de IDs/operações, chaves estrangeiras e restrições numéricas.
+3. Rollback de um lote que falha depois de inserções válidas.
+4. Importação/exportação JSON e conflito de cadastro existente.
+5. Registros inexistentes e tratamento parametrizado de texto com aparência de SQL.
+6. Cadastro e consulta pelos menus, com encerramento normal.
+7. Talhão sem colheita, valores decimais mínimos e exportação da fotografia.
+8. Consulta, alertas, simulações, TXT, JSON e rejeição de importação repetida pelo terminal.
+
+A correção da falha inicial foi verificada no mesmo teste que antes falhava. A aprovação refere-se ao escopo implementado, não a certificação agronômica ou garantia de nota.
 
 ## Matriz de critérios
 
