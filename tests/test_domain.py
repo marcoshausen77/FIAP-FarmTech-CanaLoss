@@ -94,3 +94,10 @@ def test_limits_and_precision():
     assert number('0.0001', positive=True) == D('0.0001')
     with pytest.raises(ValueError):
         sample(preco_t=0)
+
+
+def test_report_many_extreme_records():
+    from src.reports import report
+    rows = [sample(id=f'C{i}', area_ha='1000000000', perda_kg_ha='1000000000',
+                   preco_t='1000000000') for i in range(1000)]
+    assert '1.000.000.000.000.000.000.000.000.000,00' in report(rows)

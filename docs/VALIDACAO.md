@@ -14,7 +14,9 @@ Resultado: **84 passed, 6 deselected**. Os seis casos de integração exigem Ora
 
 ## Integração contínua
 
-Workflow `.github/workflows/tests.yml` implementado, aguardando execução e conferência. O resultado real será registrado após a conclusão do GitHub Actions.
+Primeira execução: [Actions #1](https://github.com/marcoshausen77/FIAP-FarmTech-CanaLoss/actions/runs/38313712996), commit `e9c02f6`.
+
+O Oracle 23.26.3.0.0 iniciou, o esquema foi criado e a suíte executou: **89 aprovados e 1 falha**. A falha ORA-01466 ocorreu na fotografia de exportação com transação READ ONLY imediatamente após DDL. A consulta foi substituída por um único SELECT com LEFT JOIN, preservando a consistência entre tabelas. Foram acrescentados casos para precisão decimal, talhão sem colheita e fluxo completo de consultas, Insights, TXT, JSON e importação repetida pelo terminal. Nova execução em conferência.
 
 ## Matriz de critérios
 

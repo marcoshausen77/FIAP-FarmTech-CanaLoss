@@ -1,8 +1,11 @@
 """Modelos e regras de negócio independentes da interface e do banco."""
 from dataclasses import dataclass
 from datetime import date
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal, InvalidOperation, getcontext
 import re
+
+# Margem para produtos e consolidações de valores extremos sem perder centavos.
+getcontext().prec = 50
 
 ZERO = Decimal('0')
 MAX_VALUE = Decimal('1000000000')

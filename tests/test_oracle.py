@@ -24,8 +24,8 @@ def repo():
         yield r
         conn.rollback()
         with conn.cursor() as c:
-            c.execute('DELETE FROM colheitas WHERE id LIKE :prefix', prefix=r.prefix + '%')
-            c.execute('DELETE FROM talhoes WHERE id LIKE :prefix', prefix=r.prefix + '%')
+            c.execute('DELETE FROM colheitas WHERE SUBSTR(id, 1, :n) = :prefix', n=len(r.prefix), prefix=r.prefix)
+            c.execute('DELETE FROM talhoes WHERE SUBSTR(id, 1, :n) = :prefix', n=len(r.prefix), prefix=r.prefix)
         conn.commit()
 
 
@@ -120,3 +120,31 @@ def test_cli_real_create_consult_exit(repo, monkeypatch, capsys):
     assert any(t.id == tid for t in repo.talhoes())
     output = capsys.readouterr().out
     assert 'Talhão cadastrado.' in output and 'encerrado com segurança' in output
+
+
+def test_snapshot_empty_talhao_and_decimal_precision(repo, tmp_path):
+    t = Talhao(repo.prefix + '_T', 'Sem colheita', '0.0001')
+    repo.add_talhao(t)
+    ts, cs = repo.snapshot()
+    assert t in ts and not any(r.talhao_id == t.id for r in cs)
+    r = repo.add_colheita(repo.prefix + '_C', t.id, '2026-02-01', '0.0001', '0.0001', '0.0001')
+    assert r in repo.snapshot()[1]
+    path = tmp_path / 'snapshot.json'
+    export_json(path, *repo.snapshot())
+    assert r in read_json(path)[1]
+
+
+def test_cli_full_flow_real_oracle(repo, monkeypatch, capsys, tmp_path):
+    t, r = create(repo)
+    json_path, txt_path = tmp_path / 'export.json', tmp_path / 'export.txt'
+    answers = iter(['2', '3', t.id, '0', '3', '2', '5', '15', '30',
+                    '4', '2', str(json_path), '3', str(txt_path),
+                    '1', str(json_path), 'SIM', '0', '0'])
+    monkeypatch.setattr('builtins.input', lambda _: next(answers))
+    run(repo)
+    assert r in read_json(json_path)[1]
+    assert 'R$ 3.000,00' in txt_path.read_text(encoding='utf-8')
+    out = capsys.readouterr().out
+    assert 'SIMULAÇÕES HIPOTÉTICAS' in out and 'R$ 450,00' in out
+    assert 'Identificador duplicado' in out
+    assert repo.colheitas(t.id) == [r]

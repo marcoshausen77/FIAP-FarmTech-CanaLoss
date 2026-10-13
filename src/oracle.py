@@ -70,11 +70,22 @@ class Repository:
             return [Colheita(row[0], row[1], row[2].date(), *row[3:]) for row in c]
 
     def snapshot(self):
-        # Duas tabelas na mesma fotografia consistente do Oracle.
-        with transaction(self.connection):
-            with self.connection.cursor() as c:
-                c.execute('SET TRANSACTION READ ONLY')
-            return self.talhoes(), self.colheitas()
+        # Um único SELECT garante consistência de leitura sem transação READ ONLY
+        # iniciada imediatamente após DDL (ORA-01466 em bancos recém-criados).
+        sql = """SELECT t.id, t.nome, t.area_ha,
+                        c.id, c.talhao_id, c.data, c.area_ha,
+                        c.producao_t, c.perda_kg_ha, c.preco_t
+                 FROM talhoes t LEFT JOIN colheitas c ON c.talhao_id = t.id
+                 ORDER BY t.id, c.data, c.id"""
+        talhoes, colheitas = {}, []
+        with self.connection.cursor() as c:
+            c.execute(sql)
+            for row in c:
+                talhoes[row[0]] = Talhao(*row[:3])
+                if row[3] is not None:
+                    colheitas.append(Colheita(row[3], row[4], row[5].date(), *row[6:]))
+        colheitas.sort(key=lambda item: (item.data, item.id))
+        return list(talhoes.values()), colheitas
 
     def add_talhao(self, talhao):
         with transaction(self.connection):

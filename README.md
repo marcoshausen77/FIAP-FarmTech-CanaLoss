@@ -60,7 +60,7 @@ O consolidado calcula o percentual pela soma das perdas dividida pela soma das p
 
 ## Regras de dados
 
-- Terminal: vírgula decimal; `1.250,50` significa mil duzentos e cinquenta e cinquenta centésimos; `1.000` significa mil. Ponto decimal não é aceito no terminal.
+- Terminal: vírgula decimal; `1.250,50` significa 1250 unidades e 50 centésimos; `1.000` significa mil. Ponto decimal não é aceito no terminal.
 - JSON: ponto decimal sem separador de milhares; exportação usa strings decimais para preservar precisão.
 - Área e preço devem ser positivos; produção e perda podem ser zero.
 - Números até 1.000.000.000, com no máximo quatro casas decimais. Limite técnico, não limite agronômico.
