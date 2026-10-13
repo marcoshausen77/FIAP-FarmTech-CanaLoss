@@ -24,6 +24,13 @@ def invalid_constant(value):
     raise ValueError(f'Constante JSON inválida: {value}.')
 
 
+def json_decimal(text):
+    # Validar a grafia original antes que Decimal normalize 1e-4 para 0.0001.
+    if 'e' in text.lower():
+        raise ValueError('Notação exponencial não é aceita no JSON; use ponto decimal.')
+    return Decimal(text)
+
+
 def validate_payload(payload):
     if not isinstance(payload, dict) or set(payload) != {'versao', 'talhoes', 'colheitas'}:
         raise ValueError('JSON deve conter somente versao, talhoes e colheitas.')
@@ -51,7 +58,7 @@ def read_json(path):
             data = handle.read(MAX_BYTES + 1)
         if len(data) > MAX_BYTES:
             raise ValueError('Arquivo excede o limite de 5 MiB.')
-        payload = json.loads(data.decode('utf-8-sig'), parse_float=Decimal,
+        payload = json.loads(data.decode('utf-8-sig'), parse_float=json_decimal,
                              parse_constant=invalid_constant, object_pairs_hook=unique_pairs)
         return validate_payload(payload)
     except (OSError, UnicodeError, json.JSONDecodeError, RecursionError) as exc:
@@ -86,4 +93,7 @@ def export_json(path, talhoes, colheitas):
     payload = {'versao': 1, 'talhoes': [asdict(t) for t in talhoes],
                'colheitas': [asdict(c) for c in colheitas]}
     validate_payload(payload)
-    atomic_write(path, json.dumps(payload, default=json_default, ensure_ascii=False, indent=2) + '\n')
+    text = json.dumps(payload, default=json_default, ensure_ascii=False, indent=2) + '\n'
+    if len(text.encode('utf-8')) > MAX_BYTES:
+        raise ValueError('Exportação excede o limite de 5 MiB da importação. Nenhum arquivo foi gravado.')
+    atomic_write(path, text)

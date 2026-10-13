@@ -16,6 +16,34 @@ def test_json_roundtrip(tmp_path):
     assert 'São João' in path.read_text(encoding='utf-8')
 
 
+@pytest.mark.parametrize('value', ['1e0', '1e-4', '1.00e1'])
+def test_json_rejects_exponential_tokens(tmp_path, value):
+    path = tmp_path / 'exponential.json'
+    path.write_text('{"versao":1,"talhoes":[{"id":"T01","nome":"Teste",'
+                    '"area_ha":' + value + '}],"colheitas":[]}', encoding='utf-8')
+    with pytest.raises(ValueError, match='exponencial'):
+        read_json(path)
+
+
+def test_json_export_size_uses_bytes_and_preserves_original(tmp_path, monkeypatch):
+    path = tmp_path / 'dados.json'
+    ts, cs = [Talhao('T01', 'São João', '10')], [sample()]
+    export_json(path, ts, cs)
+    text = path.read_text(encoding='utf-8')
+    size = len(text.encode('utf-8'))
+    assert size > len(text)
+    # O limite é em bytes UTF-8, incluindo acentos, e não em caracteres.
+    monkeypatch.setattr('src.files.MAX_BYTES', size - 1)
+    path.write_text('arquivo anterior', encoding='utf-8')
+    with pytest.raises(ValueError, match='5 MiB'):
+        export_json(path, ts, cs)
+    assert path.read_text(encoding='utf-8') == 'arquivo anterior'
+    assert list(tmp_path.iterdir()) == [path]
+    monkeypatch.setattr('src.files.MAX_BYTES', size)
+    export_json(path, ts, cs)
+    assert read_json(path) == (ts, cs)
+
+
 @pytest.mark.parametrize('text', ['{', '[]', '{}', '{"versao":1,"versao":1}',
     '{"versao":NaN}', '{"versao":Infinity}',
     '{"versao":true,"talhoes":[],"colheitas":[]}',
