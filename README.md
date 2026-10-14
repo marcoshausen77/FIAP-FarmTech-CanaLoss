@@ -8,7 +8,7 @@
 
 **Sistema Inteligente de Monitoramento de Perdas Financeiras na Colheita de Cana-de-Açúcar**
 
-## Grupo 83
+## Grupo 91
 
 | Identificação acadêmica | Informação |
 |---|---|
@@ -23,14 +23,14 @@
 | Integrante | RM |
 |---|---|
 | Bernardo Akin Chiusoli Mendes | 576239 |
-| Kelly | 576289 |
+| Kelly Mendonça Pereira | 576289 |
 | Murilo | 576622 |
 | Marcos Rodrigues Czerner Hausen | 576709 |
 | Vanira Alves da Silva | 574654 |
 
 ### Professores
 
-Os nomes do professor, tutor e coordenador desta atividade não foram confirmados. Nenhum nome ou perfil profissional foi atribuído por suposição.
+
 
 ## Descrição
 
