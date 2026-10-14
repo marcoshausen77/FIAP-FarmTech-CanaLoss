@@ -10,11 +10,15 @@ FIAP · Tecnólogo em Inteligência Artificial · FarmTech Solutions · Grupo 83
 
 **Atividade:** Capítulo 6 — Python e além. **Revisão:** 13/10/2026.
 
-| Integrante confirmado | RM |
+| Integrante | RM |
 |---|---|
+| Bernardo Akin Chiusoli Mendes | 576239 |
+| Kelly | 576289 |
+| Murilo | 576622 |
 | Marcos Rodrigues Czerner Hausen | 576709 |
+| Vanira Alves da Silva | 574654 |
 
-A relação completa dos integrantes e os nomes de professor, tutor ou coordenador dependem de confirmação da equipe. Não foram atribuídos nomes ou vínculos profissionais sem confirmação.
+Os cinco integrantes estão identificados conforme os dados informados pela equipe. Os nomes de professor, tutor ou coordenador desta atividade ainda dependem de confirmação.
 
 Este documento adapta o [modelo disponibilizado pelo professor](https://github.com/agodoi/templateFiapVfinal/blob/50e1e2720637b222357a7ebd1919c38a44af7cd2/document/ai_project_document_fiap.md) ao sistema efetivamente implementado. O CanaLoss usa regras determinísticas e cálculos; as seções de treinamento de modelos e avaliação preditiva não se aplicam.
 
@@ -230,7 +234,7 @@ Trabalhos futuros possíveis são validar o fluxo com usuários reais, definir b
 | Elemento do modelo | Aplicação no CanaLoss |
 |---|---|
 | Identidade FIAP e nome do projeto | Cabeçalho, logotipo e nome completo no README e neste documento |
-| Grupo, integrantes e professores | Grupo 83 e integrante confirmado; informações não verificadas registradas como pendentes |
+| Grupo, integrantes e professores | Grupo 83 com cinco integrantes e respectivos RMs confirmados; identificação docente ainda pendente |
 | Descrição e execução | Contexto, justificativa, objetivos, recursos, instalação e exemplo no README |
 | `document/ai_project_document_fiap.md` | Documento preenchido, com as sete partes do modelo |
 | `src/` | Código fonte existente preservado |

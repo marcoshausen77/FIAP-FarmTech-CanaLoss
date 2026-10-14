@@ -32,7 +32,7 @@ Os logs dos jobs `unit` e `oracle` foram consultados após a conclusão. No Orac
 |---|---|---|
 | 1. Cumprimento do enunciado | O README não identificava explicitamente o Capítulo 6; os resultados precisavam distinguir demonstração fictícia e evidências atuais | Atividade explicitada; resultados conhecidos e rastreabilidade dos requisitos incluídos |
 | 1. Cumprimento do enunciado | Validação JSON não cumpria integralmente a regra declarada contra notação exponencial | Correção pontual e três regressões, detalhadas abaixo |
-| 2. Adequação ao template | Ausência de identidade visual, identificação acadêmica organizada e documento `document/ai_project_document_fiap.md` | Logotipo original e documento específico incluídos; integrante confirmado identificado |
+| 2. Adequação ao template | Ausência de identidade visual, identificação acadêmica organizada e documento `document/ai_project_document_fiap.md` | Logotipo original e documento específico incluídos; cinco integrantes confirmados identificados |
 | 2. Adequação ao template | `docs/VALIDACAO.md` dizia que o template não havia sido fornecido; faltava correspondência entre as estruturas | Referência atualizada e equivalências registradas no documento acadêmico |
 | 3. Problema técnico real | `1e0`, `1e-4` e `1.00e1` em campos numéricos JSON eram normalizados antes da validação e aceitos | Verificação da grafia original pelo parser antes de construir `Decimal` |
 | 3. Problema técnico real | Um conjunto válido de 10.000 talhões e 10.000 colheitas gerava JSON de 5.970.058 bytes, recusado pelo importador de 5 MiB | Tamanho UTF-8 validado antes da gravação; arquivo anterior preservado |
@@ -134,10 +134,11 @@ O README incorpora logotipo, identificação, descrição, estrutura, execução
 
 O prazo de **14/10/2026** foi informado pelo aluno. A revisão ocorre em 13/10/2026. O [arquivo `src/readme.md` do template](https://github.com/agodoi/templateFiapVfinal/blob/50e1e2720637b222357a7ebd1919c38a44af7cd2/src/readme.md) orienta considerar o último commit dentro do prazo e atribuir alterações posteriores à próxima sprint. Não foi encontrado impedimento à revisão antes dessa data nas condições disponíveis.
 
+A identificação dos cinco integrantes do Grupo 83 foi confirmada em 13/10/2026 e atualizada no [README](../README.md#integrantes-confirmados) e no [documento acadêmico](../document/ai_project_document_fiap.md). Kelly e Murilo foram registrados com os nomes fornecidos, sem acrescentar sobrenomes.
+
 Permanecem somente as informações que exigem confirmação do aluno ou da equipe:
 
-1. Completar nomes e RMs dos demais integrantes do Grupo 83; Marcos Rodrigues Czerner Hausen, RM 576709, é o integrante identificado com dados confirmados.
-2. Confirmar professor, tutor ou coordenador se essa identificação for exigida pela turma. O proprietário do template não foi automaticamente declarado professor do grupo.
-3. Conferir no portal o horário exato de encerramento, eventuais condições adicionais e o protocolo de envio. Esta revisão não acessou o portal acadêmico nem realizou a submissão.
+1. Confirmar professor, tutor ou coordenador se essa identificação for exigida pela turma. O proprietário do template não foi automaticamente declarado professor do grupo.
+2. Conferir no portal o horário exato de encerramento, eventuais condições adicionais e o protocolo de envio. Esta revisão não acessou o portal acadêmico nem realizou a submissão.
 
 O repositório está público, e não há pendência de alteração de visibilidade. O template está disponível e foi aplicado. O enunciado fornecido do Capítulo 6 não exige vídeo. A aprovação técnica não substitui a avaliação acadêmica nem comprova a entrega no portal.

@@ -20,11 +20,13 @@
 
 ### Integrantes confirmados
 
-| Nome completo | RM |
+| Integrante | RM |
 |---|---|
+| Bernardo Akin Chiusoli Mendes | 576239 |
+| Kelly | 576289 |
+| Murilo | 576622 |
 | Marcos Rodrigues Czerner Hausen | 576709 |
-
-A identificação dos demais integrantes do Grupo 83 ainda precisa ser confirmada pela equipe. Esta tabela não representa a composição completa do grupo.
+| Vanira Alves da Silva | 574654 |
 
 ### Professores
 
