@@ -1,0 +1,8 @@
+FIAP — Capítulo 6: Python e além
+FarmTech Solutions — CanaLoss
+Grupo 83
+
+Repositório GitHub do trabalho:
+https://github.com/marcoshausen77/FIAP-FarmTech-CanaLoss
+
+Todos os arquivos necessários, código Python, documentação, banco Oracle e testes estão no repositório.
